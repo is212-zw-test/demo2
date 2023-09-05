@@ -1,0 +1,40 @@
+version: '3.0'
+
+networks:
+  test-network:
+    driver: bridge
+
+services:
+  frontend:
+    container_name: frontend
+    image: frontend:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - test-network
+    depends_on:
+      - backend
+  
+  backend:
+    container_name: backend
+    image: backend:latest
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOSTNAME=${POSTGRES_HOSTNAME}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - 5000:5000
+    networks:
+      - test-network
+    
+    
