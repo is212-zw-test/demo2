@@ -1,16 +1,14 @@
-from config import app
+from application import db
 from datetime import datetime, timedelta
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, TIMESTAMP
 import uuid
 from sqlalchemy.dialects.postgresql import TEXT,UUID, VARCHAR
 
-db = SQLAlchemy(app)
 
 time_format = "%Y-%m-%dT%H:%M:%SZ"
 class RoleListing(db.Model):
     __tablename__ = 'role_listing'
-
+    
     id = Column(UUID(as_uuid=True), primary_key=True, nullable=False, default=uuid.uuid4)
     name = Column(VARCHAR(40), nullable=False)
     description = Column(TEXT, nullable=False)

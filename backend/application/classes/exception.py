@@ -1,4 +1,4 @@
-class CustomException(Exception):
+class CustomExceptionJson(Exception):
     def __init__(self, message, resource=None, **kwargs) -> None:
         super().__init__(**kwargs)
         self._message = message

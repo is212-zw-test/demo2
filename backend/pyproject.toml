@@ -12,6 +12,7 @@ flask-cors = "^4.0.0"
 flask-sqlalchemy = "^3.0.5"
 sqlalchemy = "^2.0.20"
 psycopg2-binary = "^2.9.7"
+load-dotenv = "^0.1.0"
 
 
 [build-system]
