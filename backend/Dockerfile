@@ -19,4 +19,4 @@ RUN poetry config virtualenvs.create false \
 
 EXPOSE 5000
 
-CMD [ "python", "./app.py" ]
+CMD [ "python", "./wsgi.py" ]
