@@ -23,7 +23,9 @@ jobs:
 
       # go into the project directory
       - name: Change directory
-        run: cd /home/runner/work/demo2/demo2/backend
+        run: |
+          cd /home/runner/work/demo2/demo2/backend
+          ls -la
 
       - name: Install dependencies
         run: poetry install
