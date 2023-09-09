@@ -19,7 +19,7 @@ def init_app():
         # Include our Routes
         from .routes import role_listing_route
         # Register routes
-        app.register_blueprint(role_listing_route.api, url_prefix='/api/listings')
+        app.register_blueprint(role_listing_route.api, url_prefix='/api')
 
         # Register error handlers
         from . import errors

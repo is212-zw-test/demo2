@@ -42,4 +42,5 @@ frontend/next-env.d.ts
 
 ## backend
 backend/**/__pycache__/
+backend/.venv/**
 backend/localDev.bat

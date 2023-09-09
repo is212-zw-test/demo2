@@ -15,6 +15,16 @@ class RoleListing(db.Model):
     start_time = Column(TIMESTAMP, nullable=False, default=datetime.utcnow)
     end_time = Column(TIMESTAMP, nullable=False, default=datetime.utcnow() + timedelta(days=30))
 
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+    def __init__(self, name, description, start_time, end_time):
+        self.name = name
+        self.description = description
+        self.start_time = start_time
+        self.end_time = end_time
+
     def json(self) -> dict:
         return {
             "id": str(self.id), 
