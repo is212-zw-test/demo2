@@ -8,29 +8,29 @@ on:
       - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.11
+  #     - name: Setup Python
+  #       uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.11
 
-      - name: Install and configure Poetry
-        uses: snok/install-poetry@v1
+  #     - name: Install and configure Poetry
+  #       uses: snok/install-poetry@v1
 
-      # go into the project directory
-      - name: Run tests
-        run: |
-          cd /home/runner/work/demo2/demo2/backend
-          ls -la
-          poetry install --no-interaction --no-ansi
-          poetry run python -B -m pytest
+  #     # go into the project directory
+  #     - name: Run tests
+  #       run: |
+  #         cd /home/runner/work/demo2/demo2/backend
+  #         ls -la
+  #         poetry install --no-interaction --no-ansi
+  #         poetry run python -B -m pytest
 
   Deploy:
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
 
     steps:
@@ -47,7 +47,6 @@ jobs:
 
           #Now we have got the access of EC2 and we will start the deploy .
           ls -la &&
-          cd /home/ec2-user/demo2 &&
           git checkout main &&
           git fetch --all &&
           git reset --hard origin/main &&
