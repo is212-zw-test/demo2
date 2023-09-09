@@ -26,16 +26,34 @@ jobs:
         run: |
           cd /home/runner/work/demo2/demo2/backend
           ls -la
-          poetry install
+          poetry install --no-interaction --no-ansi
           poetry run python -B -m pytest
 
-  build:
+  Deploy:
     needs: test
     runs-on: ubuntu-latest
-    env:
-      SQLALCHEMY_DATABASE_URI: ${{ secrets.SQLALCHEMY_DATABASE_URI }}
+
     steps:
       - uses: actions/checkout@v2
+      - name: Deploy in EC2
+        env:
+          AWS_PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+          AWS_EC2_HOST_NAME: ${{ secrets.AWS_EC2_HOST_NAME  }}
+          AWS_EC2_USERNAME: ${{ secrets.AWS_EC2_USERNAME  }}
 
-      - name: Build the docker compose
-        run: docker-compose up -d --build
+        run: |
+          echo "$AWS_PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${AWS_EC2_USERNAME}@${AWS_EC2_HOST_NAME} '
+
+          #Now we have got the access of EC2 and we will start the deploy .
+          ls -la &&
+          cd /home/ec2-user/demo2 &&
+          git checkout main &&
+          git fetch --all &&
+          git reset --hard origin/main &&
+          git pull origin main &&
+          docker-compose --build --force-recreate &&
+          docker-compose up -d
+
+          # remove the key
+          rm -f private_key
