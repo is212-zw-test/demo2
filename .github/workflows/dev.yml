@@ -21,6 +21,10 @@ jobs:
       - name: Install and configure Poetry
         uses: snok/install-poetry@v1
 
+      # go into the project directory
+      - name: Change directory
+        run: cd backend
+
       - name: Install dependencies
         run: poetry install
 
