@@ -32,6 +32,8 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    env:
+      SQLALCHEMY_DATABASE_URI: ${{ secrets.SQLALCHEMY_DATABASE_URI }}
     steps:
       - uses: actions/checkout@v2
 
