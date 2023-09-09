@@ -26,6 +26,8 @@ jobs:
         run: |
           cd /home/runner/work/demo2/demo2/backend
           ls -la
+          poetry install
+          poetry run python -B -m pytest
 
       - name: Install dependencies
         run: poetry install
