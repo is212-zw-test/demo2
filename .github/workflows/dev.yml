@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,15 +22,18 @@ jobs:
         uses: snok/install-poetry@v1
 
       # go into the project directory
-      - name: Change directory
+      - name: Run tests
         run: |
           cd /home/runner/work/demo2/demo2/backend
           ls -la
           poetry install
           poetry run python -B -m pytest
 
-      - name: Install dependencies
-        run: poetry install
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
 
-      - name: Test with pytest
-        run: poetry run python -B -m pytest
+      - name: Build the docker compose
+        run: docker-compose up -d --build
