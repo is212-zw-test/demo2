@@ -40,13 +40,25 @@ jobs:
           AWS_PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
           AWS_EC2_HOST_NAME: ${{ secrets.AWS_EC2_HOST_NAME  }}
           AWS_EC2_USERNAME: ${{ secrets.AWS_EC2_USERNAME  }}
+          NEXT_ENV_FILE: ${{ secrets.NEXT_ENV_FILE  }}
+          ENV_FILE: ${{ secrets.ENV_FILE  }}
 
         run: |
           echo "$AWS_PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${AWS_EC2_USERNAME}@${AWS_EC2_HOST_NAME}
 
           #Now we have got the access of EC2 and we will start the deploy .
-          ls -la &&
+          ls -la
+          cd frontend
+          echo "Now we are in frontend"
+          ls -la
+          echo "$NEXT_ENV_FILE" > .env.production
+          echo "Added the env file to frontend"
+          ls -la
+          cd ..
+          echo "$ENV_FILE" > .env
+          echo "Added the env file to root directory"
+          ls -la
           git checkout main &&
           git fetch --all &&
           git reset --hard origin/main &&
