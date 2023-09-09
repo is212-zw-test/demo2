@@ -23,7 +23,7 @@ jobs:
 
       # go into the project directory
       - name: Change directory
-        run: cd backend
+        run: cd /home/runner/work/demo2/demo2/backend
 
       - name: Install dependencies
         run: poetry install
